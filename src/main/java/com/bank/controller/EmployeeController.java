@@ -1,11 +1,10 @@
 package com.bank.controller;
 
-import com.bank.bean.Customer;
-import com.bank.bean.Employee;
+import com.bank.bean.AccountRequest;
+import com.bank.bean.CustomerPojo;
 import com.bank.constant.ApiConstant;
 import com.bank.exception.BankException;
 import com.bank.response.BankApiResponse;
-import com.bank.service.AdminService;
 import com.bank.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -30,58 +30,72 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    @PostMapping("addCustomer")
-    public ResponseEntity<BankApiResponse> addCustomer(@RequestBody @NotNull Customer customer) throws BankException {
-        LOG.info("addCustomer Api request params :{}", customer);
-        String addSuccess = employeeService.addCustomer(customer);
+    @PostMapping("customer")
+    public ResponseEntity<BankApiResponse> addCustomer(@RequestBody @NotNull CustomerPojo customerPojo) throws BankException {
+        LOG.info("addCustomer Api request params :{}", customerPojo);
+        String addSuccess = employeeService.addCustomer(customerPojo);
         return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,addSuccess));
     }
 
-    @GetMapping("addCustomer")
-    public ResponseEntity<Customer> GetDetailForCustomer(@RequestParam @NotNull String cId) throws BankException {
+    @PostMapping("account")
+    public ResponseEntity<BankApiResponse> createAccount(@RequestBody @NotNull AccountRequest accountRequest) throws BankException {
+        LOG.info("addCustomer Api request params :{}", accountRequest);
+        String addSuccess = employeeService.createAccount(accountRequest);
+        return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,addSuccess));
+    }
+
+    @PostMapping("link/customer")
+    public ResponseEntity<BankApiResponse> linkCustomerWithAccounts(@RequestBody @NotNull List<AccountRequest> accountRequestList) throws BankException {
+        LOG.info("Link Customer Api request params :{}", accountRequestList);
+        String addSuccess = employeeService.linkCustomerWithAccounts(accountRequestList);
+        return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,addSuccess));
+    }
+
+    @GetMapping("customer")
+    public ResponseEntity<CustomerPojo> GetDetailForCustomer(@RequestParam @NotNull String cId) throws BankException {
         LOG.info("addCustomer Api request params :{}", cId);
         return ResponseEntity.ok().body(employeeService.GetDetailForCustomer(cId));
     }
 
-    @PutMapping("updateKyc")
-    public ResponseEntity<BankApiResponse> updateKycForCustomer(@RequestParam Customer customer) throws BankException {
-        LOG.info("addCustomer Api request params :{}", customer);
-        String updateSuccess = employeeService.updateKycForCustomer(customer);
+    @PutMapping("kyc")
+    public ResponseEntity<BankApiResponse> updateKycForCustomer(@RequestParam  @NotNull String cId,@RequestBody @NotNull CustomerPojo customerPojo) throws BankException {
+        LOG.info("addCustomer Api request params :{}", cId);
+        String updateSuccess = employeeService.updateKycForCustomer(cId,customerPojo);
         return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,updateSuccess));
     }
 
-    @PostMapping("deleteCustomer")
+    @DeleteMapping("customer")
     public ResponseEntity<BankApiResponse> deleteCustomer(@RequestBody @NotNull String cId) throws BankException {
         LOG.info("deleteCustomer Api request params :{}", cId);
         String deleteSuccess = employeeService.deleteCustomer(cId);
         return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,deleteSuccess));
     }
 
-    @PostMapping("accountDetails")
-    public ResponseEntity<BankApiResponse> accountDetailsForCustomer(@RequestBody @NotNull String accountNo) throws BankException {
+    @GetMapping("account/balance")
+    public ResponseEntity<BankApiResponse> accountBalanceForAccount(@RequestBody @NotNull String accountNo) throws BankException {
         LOG.info("accountDetailsForCustomer Api request params :{}", accountNo);
-        String deleteSuccess = employeeService.accountDetailsForCustomer(accountNo);//.....
+        String deleteSuccess = employeeService.accountBalanceForAccount(accountNo);
         return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,deleteSuccess));
     }
 
-    @PostMapping("transferMoney")
+    @PutMapping("transfer/money")
     public ResponseEntity<BankApiResponse> transferMoney(@RequestParam @NotNull String sourceAccount,@RequestParam @NotNull String targetAccount,@RequestParam @NotNull int amount) throws BankException {
         LOG.info("accountDetailsForCustomer Api request params :{}", sourceAccount);
-        String deleteSuccess = employeeService.transferMoney(sourceAccount,sourceAccount,sourceAccount);//.....
+        String deleteSuccess = employeeService.transferMoney(sourceAccount,targetAccount,amount);
         return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,deleteSuccess));
     }
 
-    @PostMapping("accountStatement")
+    @PostMapping("account/statement")
     public ResponseEntity<BankApiResponse> accountStatement(@RequestParam @NotNull String account,@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")@PathVariable("startTime")@NotNull Date startTime,@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")@PathVariable("endTime")@NotNull Date endTime) throws BankException {
         LOG.info("accountDetailsForCustomer Api request params :{}", account);
-        String deleteSuccess = employeeService.accountStatement(account,startTime,endTime);//.....
+        String deleteSuccess = employeeService.accountStatement(account,startTime,endTime);
         return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,deleteSuccess));
     }
 
-    @PostMapping("accountStatement")
-    public ResponseEntity<BankApiResponse> calculateInterest(@RequestParam @NotNull String account, @RequestParam @NotNull float interestRate) throws BankException {
-        LOG.info("accountDetailsForCustomer Api request params :{}", account);
-        String calculateInterest = employeeService.calculateInterest(account,interestRate);
+    @PutMapping("account/interest")
+    public ResponseEntity<BankApiResponse> calculateInterest(@RequestParam @NotNull String accountNo, @RequestParam @NotNull float interestRate) throws BankException {
+        LOG.info("accountDetailsForCustomer Api request params :{}", accountNo);
+        String calculateInterest = employeeService.calculateInterest(accountNo,interestRate);
         return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,calculateInterest));
     }
 }

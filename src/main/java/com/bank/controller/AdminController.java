@@ -36,7 +36,7 @@ public class AdminController {
     @PutMapping("deleteEmployees")
     public ResponseEntity<BankApiResponse> deleteEmployees(@RequestBody @NotNull List<Employee> employeeList) throws BankException {
         LOG.info("deleteEmployees Api request params :{}", employeeList);
-        String addSuccess = adminService.deleteEmployees(employeeList);
-        return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,addSuccess));
+        String deleteSuccess = adminService.deleteEmployees(employeeList);
+        return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,deleteSuccess));
     }
 }
