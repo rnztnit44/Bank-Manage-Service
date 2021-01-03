@@ -45,9 +45,9 @@ public class EmployeeController {
     }
 
     @PostMapping("link/customer")
-    public ResponseEntity<BankApiResponse> linkCustomerWithAccounts(@RequestBody @NotNull List<AccountRequest> accountRequestList) throws BankException {
+    public ResponseEntity<BankApiResponse> linkCustomerWithAccounts(@RequestParam  @NotNull String cId,@RequestBody @NotNull List<AccountRequest> accountRequestList) throws BankException {
         LOG.info("Link Customer Api request params :{}", accountRequestList);
-        String addSuccess = employeeService.linkCustomerWithAccounts(accountRequestList);
+        String addSuccess = employeeService.linkCustomerWithAccounts(cId,accountRequestList);
         return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,addSuccess));
     }
 
@@ -74,8 +74,8 @@ public class EmployeeController {
     @GetMapping("account/balance")
     public ResponseEntity<BankApiResponse> accountBalanceForAccount(@RequestBody @NotNull String accountNo) throws BankException {
         LOG.info("accountDetailsForCustomer Api request params :{}", accountNo);
-        String deleteSuccess = employeeService.accountBalanceForAccount(accountNo);
-        return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,deleteSuccess));
+        int balanceAmount = employeeService.accountBalanceForAccount(accountNo);
+        return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,balanceAmount));
     }
 
     @PutMapping("transfer/money")
@@ -95,7 +95,7 @@ public class EmployeeController {
     @PutMapping("account/interest")
     public ResponseEntity<BankApiResponse> calculateInterest(@RequestParam @NotNull String accountNo, @RequestParam @NotNull float interestRate) throws BankException {
         LOG.info("accountDetailsForCustomer Api request params :{}", accountNo);
-        String calculateInterest = employeeService.calculateInterest(accountNo,interestRate);
-        return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,calculateInterest));
+        float interest = employeeService.calculateInterest(accountNo,interestRate);
+        return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,interest));
     }
 }

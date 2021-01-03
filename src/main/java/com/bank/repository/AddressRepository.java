@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface AddressRepository extends JpaRepository<Address, String> {
 
-    @Query(value = "Select * from customer C where C.customer_id=:cId", nativeQuery = true)
-    Customer findByCustomerId(String cId);
+    @Query(value = "Select * from Address A where A.address_id=:addressId", nativeQuery = true)
+    Address findByAddressId(String addressId);
 }

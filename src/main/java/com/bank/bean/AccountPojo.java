@@ -25,7 +25,7 @@ public class AccountPojo {
         private String accountNo;
         private int amount;
 
-        private Builder() {
+        public Builder() {
         }
 
         public AccountPojo build() {

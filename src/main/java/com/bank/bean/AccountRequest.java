@@ -9,6 +9,7 @@ public class AccountRequest {
     private String name;
     private AddressPojo addressPojo;
     private String mobileNo;
+    private String aadhaar;
     private String email;
 
     private AccountRequest(Builder builder) {
@@ -18,6 +19,7 @@ public class AccountRequest {
         this.name = builder.name;
         this.addressPojo = builder.addressPojo;
         this.mobileNo = builder.mobileNo;
+        this.aadhaar = builder.aadhaar;
         this.email = builder.email;
     }
 
@@ -73,6 +75,14 @@ public class AccountRequest {
         this.mobileNo = mobileNo;
     }
 
+    public String getAadhaar() {
+        return aadhaar;
+    }
+
+    public void setAadhaar(String aadhaar) {
+        this.aadhaar = aadhaar;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -89,9 +99,10 @@ public class AccountRequest {
         private String name;
         private AddressPojo addressPojo;
         private String mobileNo;
+        private String aadhaar;
         private String email;
 
-        private Builder() {
+        public Builder() {
         }
 
         public AccountRequest build() {
@@ -125,6 +136,11 @@ public class AccountRequest {
 
         public Builder mobileNo(String mobileNo) {
             this.mobileNo = mobileNo;
+            return this;
+        }
+
+        public Builder aadhaar(String aadhaar) {
+            this.aadhaar = aadhaar;
             return this;
         }
 

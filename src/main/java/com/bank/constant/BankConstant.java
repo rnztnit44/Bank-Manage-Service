@@ -1,6 +1,8 @@
 package com.bank.constant;
 
 public class BankConstant {
+    public static final String ACCOUNT_CREATION_SUCCESS = "Account created successfully";
+
     private BankConstant() {
 
     }

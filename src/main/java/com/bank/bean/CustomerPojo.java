@@ -6,7 +6,7 @@ import java.util.List;
 
 @Data
 public class CustomerPojo {
-    private int cId;
+    private String cId;
     private String name;
     private AddressPojo addressPojo;
     private String mobileNo;
@@ -25,11 +25,11 @@ public class CustomerPojo {
         this.accountPojoList =builder.accountPojoList;
     }
 
-    public int getcId() {
+    public String getcId() {
         return cId;
     }
 
-    public void setcId(int cId) {
+    public void setcId(String cId) {
         this.cId = cId;
     }
 
@@ -84,7 +84,7 @@ public class CustomerPojo {
 
     //Builder Class
     public static class CustomerBuilder{
-        private int cId;
+        private String cId;
         private String name;
         private AddressPojo addressPojo;
         private String mobileNo;
@@ -93,7 +93,7 @@ public class CustomerPojo {
         private List<AccountPojo> accountPojoList;
 
 
-        public CustomerBuilder setCid(int cId) {
+        public CustomerBuilder setCid(String cId) {
             this.cId = cId;
             return this;
         }
