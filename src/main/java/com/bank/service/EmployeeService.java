@@ -49,25 +49,10 @@ public class EmployeeService {
     }
 
     public String createAccount(AccountRequest accountRequest) {
-        AddressPojo addressPojo = accountRequest.getAddressPojo();
-
-//        Address address = new Address.Builder().location(addressPojo.getLocation())
-//                .city(addressPojo.getCity()).country(addressPojo.getCountry())
-//                .pinCode(addressPojo.getPinCode()).state(addressPojo.getState()).build();
-//        addressRepository.save(address);
-//        Customer customer = new Customer.Builder().aadhaar(accountRequest.getAadhaar())
-//                .email(accountRequest.getEmail()).mobileNo(accountRequest.getMobileNo())
-//                .name(accountRequest.getName()).addressId(address.getAddressId()).build();
-//        customerRepository.save(customer);
-
-//        Account account = new Account.Builder().accountNo(accountRequest.getAccountNo()).
-//                accountType(accountRequest.getAccountType().getName()).amount(accountRequest.getAmount())
-//                .customerId(customer.getCustomerId()).build();
         Account account = new Account.Builder().accountNo(accountRequest.getAccountNo()).
                 accountType(accountRequest.getAccountType().getName()).amount(accountRequest.getAmount())
                 .build();
         accountRepository.save(account);
-
         return BankConstant.ACCOUNT_CREATION_SUCCESS;
     }
 
@@ -78,8 +63,6 @@ public class EmployeeService {
         for (String accountNo : accountNos) {
             Account account = accountRepository.findByAccountNo(accountNo);
             if (account != null) {
-//                CustomerAccountMapping customerAccount = new CustomerAccountMapping.Builder()
-//                        .accountNo(accountNo).customerId(cId).build();
                 CustomerAccountMapping customerAccount = customerAccoutRepository.findByAccountId(accountNo);
                 if (customerAccount != null)
                     customerAccount.setCustomerId(cId);
@@ -100,13 +83,10 @@ public class EmployeeService {
             throw new BankException(ExceptionConstant.CUSTOMER_NOT_EXIST);
         if (aadhaar != null)
             customer.setAadhaar(aadhaar);
-           // customerRepository.setAadhaar(cId,aadhaar);
         if (mobile != null)
             customer.setMobileNo(mobile);
-            //customerRepository.setMobileNo(cId,mobile);
         if (email != null)
             customer.setEmail(email);
-           // customerRepository.setEmailId(cId,email);
         customerRepository.save(customer);
         return BankConstant.KYC_UPDATE_SUCCESS;
     }
@@ -122,16 +102,6 @@ public class EmployeeService {
         AddressPojo addressPojo = AddressPojo.newAddressPojo().city(address.getCity()).
                 country(address.getCountry()).location(address.getLocation()).pinCode(address.getPinCode())
                 .state(address.getState()).build();
-//        List<String> accountNoList = CustomerAccoutRepository.findAllAcountNoByCustomerId(cId);
-//        List<AccountPojo> accountList = new ArrayList<>();
-//        for (String accountNo : accountNoList) {
-//            Account account = accountRepository.findByAccountNo(accountNo);
-//            AccountPojo accountPojo = new AccountPojo.Builder().accountNo(accountNo).
-//                    accountType(AccountType.valueOf(account.getAccountType())).amount(account.getAmount()).build();
-//            accountList.add(accountPojo);
-//        }
-
-
         List<CustomerAccountMapping> customerAccounts = customerAccoutRepository.findByCustomerId(cId);
         List<AccountPojo> accountList = new ArrayList<>();
         for (CustomerAccountMapping customerAccountMapping : customerAccounts) {
@@ -140,11 +110,8 @@ public class EmployeeService {
                     accountType(AccountType.valueOf(account.getAccountType().toUpperCase())).amount(account.getAmount()).build();
             accountList.add(accountPojo);
         }
-
-
-
         CustomerPojo customerPojo = new CustomerPojo.CustomerBuilder().setAddressPojo(addressPojo).setAadhaar(customer.getAadhaar())
-        .setCid(customer.getCustomerId()).setEmail(customer.getEmail()).setMobileNo(customer.getMobileNo())
+        .setEmail(customer.getEmail()).setMobileNo(customer.getMobileNo())
         .setName(customer.getName()).accountList(accountList).build();
         return customerPojo;
     }

@@ -14,7 +14,6 @@ public class EmployeePojo {
 
     public EmployeePojo(){}
     private EmployeePojo(Builder builder) {
-      //  this.employeeId = builder.employeeId;
         this.name = builder.name;
         this.addressPojo = builder.addressPojo;
         this.mobileNo = builder.mobileNo;
@@ -28,14 +27,6 @@ public class EmployeePojo {
     public static Builder newEmployee() {
         return new Builder();
     }
-
-//    public int getEmployeeId() {
-//        return employeeId;
-//    }
-//
-//    public void setEmployeeId(int employeeId) {
-//        this.employeeId = employeeId;
-//    }
 
     public String getName() {
         return name;
@@ -102,7 +93,6 @@ public class EmployeePojo {
     }
 
     public static final class Builder {
-        private int employeeId;
         private String name;
         private AddressPojo addressPojo;
         private String mobileNo;
@@ -117,11 +107,6 @@ public class EmployeePojo {
 
         public EmployeePojo build() {
             return new EmployeePojo(this);
-        }
-
-        public Builder employeeId(int employeeId) {
-            this.employeeId = employeeId;
-            return this;
         }
 
         public Builder name(String name) {

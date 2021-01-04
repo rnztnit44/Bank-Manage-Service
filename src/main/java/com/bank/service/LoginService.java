@@ -56,10 +56,5 @@ public class LoginService {
                 token(uuid.toString()+employeeId).employeeId(employeeId).build();
         employeeTokenRepository.save(employeeTokenMapping);
         return uuid;
-
-//        UUID uuid = UUID.randomUUID();
-//        String key = uuid.toString() + employeeId;
-//        employeeTokenRepository.updateAuthForAdmin(employeeId, key);
-//        return uuid;
     }
 }

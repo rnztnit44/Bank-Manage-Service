@@ -3,7 +3,6 @@ package com.bank.bean;
 import java.util.List;
 
 public class CustomerPojo {
-   // private int cId;
     private String name;
     private AddressPojo addressPojo;
     private String mobileNo;
@@ -13,7 +12,6 @@ public class CustomerPojo {
 
     public CustomerPojo(){}
     public CustomerPojo(CustomerBuilder builder) {
-      //  this.cId=builder.cId;
         this.name=builder.name;
         this.addressPojo =builder.addressPojo;
         this.mobileNo=builder.mobileNo;
@@ -21,14 +19,6 @@ public class CustomerPojo {
         this.email=builder.email;
         this.accountPojoList =builder.accountPojoList;
     }
-
-//    public int getcId() {
-//        return cId;
-//    }
-//
-//    public void setcId(int cId) {
-//        this.cId = cId;
-//    }
 
     public String getName() {
         return name;
@@ -81,19 +71,12 @@ public class CustomerPojo {
 
     //Builder Class
     public static class CustomerBuilder{
-        private int cId;
         private String name;
         private AddressPojo addressPojo;
         private String mobileNo;
         private String aadhaar;
         private String email;
         private List<AccountPojo> accountPojoList;
-
-
-        public CustomerBuilder setCid(int cId) {
-            this.cId = cId;
-            return this;
-        }
 
         public CustomerBuilder setName(String name) {
             this.name = name;

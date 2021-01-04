@@ -18,19 +18,11 @@ import java.util.List;
 public class AdminService {
 
     @Autowired
-    private CustomerRepository customerRepository;
-
-    @Autowired
     private AddressRepository addressRepository;
-
-    @Autowired
-    private AccountRepository accountRepository;
 
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @Autowired
-    private CustomerAccoutRepository CustomerAccoutRepository;
 
     public String addEmployees(List<EmployeePojo> employeePojoList) throws BankException {
         boolean invalidEmployee = false;

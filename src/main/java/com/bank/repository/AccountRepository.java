@@ -8,7 +8,4 @@ public interface AccountRepository extends JpaRepository<Account, String> {
 
     @Query(value = "Select * from account A where A.account_no=:accountNo", nativeQuery = true)
     Account findByAccountNo(String accountNo);
-
-    @Query(value = "Update account A SET A.customer_id = :cId where A.account_no=:accountNo", nativeQuery = true)
-    void setCustomerId(int cId, String accountNo);
 }

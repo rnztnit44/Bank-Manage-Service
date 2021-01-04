@@ -8,9 +8,6 @@ import java.util.List;
 
 public interface CustomerAccoutRepository extends JpaRepository<CustomerAccountMapping, Integer> {
 
-    @Query(value = "Select account_no from customer_account C where C.customer_id=:customerId", nativeQuery = true)
-    List<String> findAllAcountNoByCustomerId(int customerId);
-
     @Query(value = "Select * from customer_account C where C.customer_id=:customerId", nativeQuery = true)
     List<CustomerAccountMapping> findByCustomerId(int customerId);
 

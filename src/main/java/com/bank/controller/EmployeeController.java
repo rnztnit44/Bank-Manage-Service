@@ -59,28 +59,27 @@ public class EmployeeController {
 
     @PostMapping("account")
     public ResponseEntity<BankApiResponse> createAccount(@RequestBody @NotNull AccountRequest accountRequest) throws BankException {
-        LOG.info("addCustomer Api request params :{}", accountRequest);
-        String addSuccess = employeeService.createAccount(accountRequest);
-        return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,addSuccess));
+        LOG.info("createAccount Api request params :{}", accountRequest);
+        return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,employeeService.createAccount(accountRequest)));
     }
 
     @PostMapping("link/customer")
     public ResponseEntity<BankApiResponse> linkCustomerWithAccounts(@RequestParam  @NotNull int cId,@RequestParam @NotNull List<String> accountNos) throws BankException {
-        LOG.info("Link Customer Api request params :{}", accountNos);
-        String addSuccess = employeeService.linkCustomerWithAccounts(cId,accountNos);
-        return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,addSuccess));
+        LOG.info("Link Customer Api request params :{},{}", cId,accountNos);
+        String accountLinkSuccess = employeeService.linkCustomerWithAccounts(cId,accountNos);
+        return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,accountLinkSuccess));
     }
 
     @PutMapping("kyc")
     public ResponseEntity<BankApiResponse> updateKycForCustomer(@RequestParam  @NotNull int cId,@RequestParam String aadhaar,@RequestParam String mobile,@RequestParam String email) throws BankException {
-        LOG.info("addCustomer Api request params :{}", cId);
+        LOG.info("updateKyc Api request for customerId :{}", cId);
         String updateSuccess = employeeService.updateKycForCustomer(cId,aadhaar,mobile,email);
         return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,updateSuccess));
     }
 
     @GetMapping("customer")
     public ResponseEntity<CustomerPojo> GetDetailForCustomer(@RequestParam @NotNull int cId) throws BankException {
-        LOG.info("addCustomer Api request params :{}", cId);
+        LOG.info("get details Api request for customerId :{}", cId);
         return ResponseEntity.ok().body(employeeService.GetDetailForCustomer(cId));
     }
 
@@ -88,7 +87,7 @@ public class EmployeeController {
 
     @DeleteMapping("customer")
     public ResponseEntity<BankApiResponse> deleteCustomer(@RequestParam @NotNull int cId) throws BankException {
-        LOG.info("deleteCustomer Api request params :{}", cId);
+        LOG.info("deleteCustomer Api request for customerId :{}", cId);
         String deleteSuccess = employeeService.deleteCustomer(cId);
         return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,deleteSuccess));
     }
@@ -102,7 +101,7 @@ public class EmployeeController {
 
     @PutMapping("transfer/money")
     public ResponseEntity<BankApiResponse> transferMoney(@RequestParam @NotNull String sourceAccount,@RequestParam @NotNull String targetAccount,@RequestParam @NotNull int amount) throws BankException {
-        LOG.info("accountDetailsForCustomer Api request params :{}", sourceAccount);
+        LOG.info("transferMoney Api request params :{},{},{}", sourceAccount,targetAccount,amount);
         String deleteSuccess = employeeService.transferMoney(sourceAccount,targetAccount,amount);
         return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,deleteSuccess));
     }
@@ -116,7 +115,7 @@ public class EmployeeController {
 
     @PutMapping("account/interest")
     public ResponseEntity<BankApiResponse> calculateInterest(@RequestParam @NotNull String accountNo, @RequestParam @NotNull float interestRate) throws BankException {
-        LOG.info("accountDetailsForCustomer Api request params :{}", accountNo);
+        LOG.info("calculateInterest Api request params :{},{}", accountNo,interestRate);
         float interest = employeeService.calculateInterest(accountNo,interestRate);
         return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,BankConstant.INTEREST_CALCULATION+interest));
     }
