@@ -3,7 +3,6 @@ package com.bank.bean;
 import com.bank.enums.EmployeeType;
 
 public class EmployeePojo {
-    private int employeeId;
     private String name;
     private AddressPojo addressPojo;
     private String mobileNo;
@@ -13,8 +12,9 @@ public class EmployeePojo {
     private EmployeeType employeeType;
     private String department ;
 
+    public EmployeePojo(){}
     private EmployeePojo(Builder builder) {
-        this.employeeId = builder.employeeId;
+      //  this.employeeId = builder.employeeId;
         this.name = builder.name;
         this.addressPojo = builder.addressPojo;
         this.mobileNo = builder.mobileNo;
@@ -29,13 +29,13 @@ public class EmployeePojo {
         return new Builder();
     }
 
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
+//    public int getEmployeeId() {
+//        return employeeId;
+//    }
+//
+//    public void setEmployeeId(int employeeId) {
+//        this.employeeId = employeeId;
+//    }
 
     public String getName() {
         return name;

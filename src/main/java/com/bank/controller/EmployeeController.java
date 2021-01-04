@@ -37,18 +37,17 @@ public class EmployeeController {
     @Autowired
     private LoginService loginService;
 
-    @GetMapping("login")
+    @PostMapping("login")
     public ResponseEntity<String> loginEmployee(@RequestParam("employeeId") int employeeId) throws BankException {
-
         UUID uuid = loginService.generateAuthEmployee(employeeId);
         return ResponseEntity.ok(uuid.toString());
     }
 
-    @GetMapping("logout")
-    public ResponseEntity logoutEmployee(@RequestHeader("header") String header, @RequestParam("employeeId") int employeeId) throws BankException {
+    @PutMapping("logout")
+    public ResponseEntity<BankApiResponse> logoutEmployee(@RequestHeader("header") String header, @RequestParam("employeeId") int employeeId) throws BankException {
         String key = header + employeeId;
-        loginService.deleteAuthAdmin(key);
-        return ResponseEntity.ok( HttpStatus.OK);
+        String logoutSuccess = loginService.deleteAuthAdmin(key);
+        return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,logoutSuccess));
     }
 
     @PostMapping("customer")

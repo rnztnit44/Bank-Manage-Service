@@ -13,4 +13,6 @@ public class BankConstant {
     public static final String CUSTOMER_ADD_SUCCESS = "Customer added successfully";
     public static final String DELETE_SUCCESS = "Customer deleted successfully";
     public static final String ACCOUNT_BALANCE = "Account balance is ";
+    public static final String ADMIN = "ADMIN";
+    public static final String LOGOUT_SUCCESS = "Account Logout successfully";
 }

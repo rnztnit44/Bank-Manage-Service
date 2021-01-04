@@ -1,11 +1,12 @@
 package com.bank.repository;
 
-import com.bank.entity.Employee;
 import com.bank.entity.EmployeeTokenMapping;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 
-public interface EmployeeTokenRepository extends JpaRepository<EmployeeTokenMapping, String> {
+public interface EmployeeTokenRepository extends CrudRepository<EmployeeTokenMapping, String> {
 //
 //    @Query(value = "Select * from Employee E where E.employee_id=:employeeId", nativeQuery = true)
 //    Employee findByEmployeeId(String employeeId);
@@ -16,7 +17,7 @@ public interface EmployeeTokenRepository extends JpaRepository<EmployeeTokenMapp
     @Query(value = "Update EmployeeTokenMapping E SET E.token = :header where E.user_id=:userId", nativeQuery = true)
     void updateAuthForAdmin(int userId, String header);
 
-
-    @Query(value = "Delete from EmployeeTokenMapping E where E.token=:header", nativeQuery = true)
-    void deleteAuth(String header);
+    //@Modifying
+    @Query(value = "delete from EmployeeTokenMapping E where E.token=:token", nativeQuery = true)
+    void deleteAuth(String token);
 }

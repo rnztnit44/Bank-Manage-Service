@@ -45,7 +45,9 @@ public class AdminService {
             addressRepository.save(address);
             Employee employee = new Employee.Builder().aadhaar(employeePojo.getAadhaar())
                     .email(employeePojo.getEmail()).mobileNo(employeePojo.getMobileNo())
-                    .name(employeePojo.getName()).build();
+                    .name(employeePojo.getName()).addressId(address.getAddressId())
+                    .employeeType(employeePojo.getEmployeeType().name()).
+                    department(employeePojo.getDepartment()).build();
             employeeRepository.save(employee);
         }
         if (invalidEmployee)

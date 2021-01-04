@@ -7,16 +7,16 @@ import javax.persistence.*;
 public class EmployeeTokenMapping {
 
     @Id
-    @Column(name = "user_id")
-    @GeneratedValue( strategy = GenerationType.IDENTITY )
-    private int userid;
-
     @Column(name = "token")
     private String token;
 
+    @Column(name = "employee_id")
+    private int employeeId;
+
     public EmployeeTokenMapping(){}
+
     private EmployeeTokenMapping(Builder builder) {
-        this.userid = builder.userid;
+        this.employeeId = builder.employeeId;
         this.token = builder.token;
     }
 
@@ -24,12 +24,12 @@ public class EmployeeTokenMapping {
         return new Builder();
     }
 
-    public int getUserid() {
-        return userid;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    public void setUserid(int userid) {
-        this.userid = userid;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getToken() {
@@ -40,20 +40,19 @@ public class EmployeeTokenMapping {
         this.token = token;
     }
 
-
     public static final class Builder {
-        private int userid;
+        private int employeeId;
         private String token;
 
-        private Builder() {
+        public Builder() {
         }
 
         public EmployeeTokenMapping build() {
             return new EmployeeTokenMapping(this);
         }
 
-        public Builder userid(int userid) {
-            this.userid = userid;
+        public Builder employeeId(int employeeId) {
+            this.employeeId = employeeId;
             return this;
         }
 

@@ -12,7 +12,7 @@ public class Employee {
     private int employeeId;
 
     @Column(name = "address_id")
-    private String addressId;
+    private int addressId;
 
     @Column(name = "name")
     private String name;
@@ -60,11 +60,11 @@ public class Employee {
         this.employeeId = employeeId;
     }
 
-    public String getAddressId() {
+    public int getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(String addressId) {
+    public void setAddressId(int addressId) {
         this.addressId = addressId;
     }
 
@@ -127,7 +127,7 @@ public class Employee {
 
     public static final class Builder {
         private int employeeId;
-        private String addressId;
+        private int addressId;
         private String name;
         private String mobileNo;
         private String aadhaar;
@@ -148,7 +148,7 @@ public class Employee {
             return this;
         }
 
-        public Builder addressId(String addressId) {
+        public Builder addressId(int addressId) {
             this.addressId = addressId;
             return this;
         }
