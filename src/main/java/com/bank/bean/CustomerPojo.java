@@ -1,22 +1,19 @@
 package com.bank.bean;
 
-import lombok.Data;
-
 import java.util.List;
 
-@Data
 public class CustomerPojo {
-    private String cId;
+   // private int cId;
     private String name;
     private AddressPojo addressPojo;
     private String mobileNo;
     private String aadhaar;
     private String email;
-    private List<AccountPojo> accountPojoList;
+    private List<AccountPojo> accountPojoList ;
 
     public CustomerPojo(){}
     public CustomerPojo(CustomerBuilder builder) {
-        this.cId=builder.cId;
+      //  this.cId=builder.cId;
         this.name=builder.name;
         this.addressPojo =builder.addressPojo;
         this.mobileNo=builder.mobileNo;
@@ -25,13 +22,13 @@ public class CustomerPojo {
         this.accountPojoList =builder.accountPojoList;
     }
 
-    public String getcId() {
-        return cId;
-    }
-
-    public void setcId(String cId) {
-        this.cId = cId;
-    }
+//    public int getcId() {
+//        return cId;
+//    }
+//
+//    public void setcId(int cId) {
+//        this.cId = cId;
+//    }
 
     public String getName() {
         return name;
@@ -84,7 +81,7 @@ public class CustomerPojo {
 
     //Builder Class
     public static class CustomerBuilder{
-        private String cId;
+        private int cId;
         private String name;
         private AddressPojo addressPojo;
         private String mobileNo;
@@ -93,7 +90,7 @@ public class CustomerPojo {
         private List<AccountPojo> accountPojoList;
 
 
-        public CustomerBuilder setCid(String cId) {
+        public CustomerBuilder setCid(int cId) {
             this.cId = cId;
             return this;
         }

@@ -1,23 +1,16 @@
 package com.bank.entity;
 
-import com.bank.enums.AccountType;
-import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "account")
-@Data
 public class Account {
-//    AccountType accountType;
-//    String accountNo;
-//    int amount;
     @Id
     @Column(name = "account_no")
     private String accountNo;
 
     @Column(name = "customer_id")
-    private String customerId;
+    private int customerId;
 
     @Column(name = "amount")
     private int amount;
@@ -25,6 +18,7 @@ public class Account {
     @Column(name = "account_type")
     private String accountType;
 
+    public Account(){}
     private Account(Builder builder) {
         this.accountNo = builder.accountNo;
         this.customerId = builder.customerId;
@@ -44,11 +38,11 @@ public class Account {
         this.accountNo = accountNo;
     }
 
-    public String getCustomerId() {
+    public int getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(String customerId) {
+    public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
 
@@ -70,7 +64,7 @@ public class Account {
 
     public static final class Builder {
         private String accountNo;
-        private String customerId;
+        private int customerId;
         private int amount;
         private String accountType;
 
@@ -86,7 +80,7 @@ public class Account {
             return this;
         }
 
-        public Builder customerId(String customerId) {
+        public Builder customerId(int customerId) {
             this.customerId = customerId;
             return this;
         }

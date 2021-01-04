@@ -1,8 +1,5 @@
 package com.bank.bean;
 
-import lombok.Data;
-
-@Data
 public class AddressPojo {
     String location;
     String city;

@@ -1,29 +1,15 @@
 package com.bank.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "address")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Address {
 
-//    String location;
-//    String city;
-//    String state;
-//    String country;
-//    int pinCode;
     @Id
     @Column(name = "address_id")
     @GeneratedValue( strategy = GenerationType.IDENTITY )
-    private String addressId;
+    private int addressId;
 
     @Column(name = "location")
     private String location;
@@ -40,6 +26,7 @@ public class Address {
     @Column(name = "pin_code")
     private int pinCode;
 
+    public Address(){}
     private Address(Builder builder) {
         this.addressId = builder.addressId;
         this.location = builder.location;
@@ -53,11 +40,11 @@ public class Address {
         return new Builder();
     }
 
-    public String getAddressId() {
+    public int getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(String addressId) {
+    public void setAddressId(int addressId) {
         this.addressId = addressId;
     }
 
@@ -102,7 +89,7 @@ public class Address {
     }
 
     public static final class Builder {
-        private String addressId;
+        private int addressId;
         private String location;
         private String city;
         private String state;
@@ -116,7 +103,7 @@ public class Address {
             return new Address(this);
         }
 
-        public Builder addressId(String addressId) {
+        public Builder addressId(int addressId) {
             this.addressId = addressId;
             return this;
         }

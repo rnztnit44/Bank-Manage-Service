@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import static com.bank.constant.ApiConstant.SERVER_ERROR_MESSAGE;
 
-@Slf4j
 @ControllerAdvice
 public class ExceptionHandlingControllerAdvice {
 

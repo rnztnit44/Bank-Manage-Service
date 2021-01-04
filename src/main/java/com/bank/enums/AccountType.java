@@ -1,7 +1,7 @@
 package com.bank.enums;
 
 public enum AccountType {
-    SAVING("savings"),
+    SAVING("saving"),
     SALARY("salary"),
     LOAN("loan"),
     CURRENT("current");

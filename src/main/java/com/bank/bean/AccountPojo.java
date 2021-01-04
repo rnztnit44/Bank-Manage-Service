@@ -1,18 +1,41 @@
 package com.bank.bean;
 
 import com.bank.enums.AccountType;
-import lombok.Data;
 
-//@Data
 public class AccountPojo {
     AccountType accountType;
     String accountNo;
     int amount;
 
+    public AccountPojo(){}
     private AccountPojo(Builder builder) {
         this.accountType = builder.accountType;
         this.accountNo = builder.accountNo;
         this.amount = builder.amount;
+    }
+
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
+    }
+
+    public String getAccountNo() {
+        return accountNo;
+    }
+
+    public void setAccountNo(String accountNo) {
+        this.accountNo = accountNo;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     public static Builder newAccountPojo() {

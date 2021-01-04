@@ -1,54 +1,40 @@
 package com.bank.bean;
 
-import com.bank.enums.AccountType;
+import com.bank.enums.EmployeeType;
 
-public class AccountRequest {
-    private AccountType accountType;
-    private int amount;
-    private String accountNo;
+public class EmployeePojo {
+    private int employeeId;
     private String name;
     private AddressPojo addressPojo;
     private String mobileNo;
     private String aadhaar;
     private String email;
-    public AccountRequest(){}
-    private AccountRequest(Builder builder) {
-        this.accountType = builder.accountType;
-        this.amount = builder.amount;
-        this.accountNo = builder.accountNo;
+    private int age;
+    private EmployeeType employeeType;
+    private String department ;
+
+    private EmployeePojo(Builder builder) {
+        this.employeeId = builder.employeeId;
         this.name = builder.name;
         this.addressPojo = builder.addressPojo;
         this.mobileNo = builder.mobileNo;
         this.aadhaar = builder.aadhaar;
         this.email = builder.email;
+        this.age = builder.age;
+        this.employeeType = builder.employeeType;
+        this.department = builder.department;
     }
 
-    public static Builder newAccountRequest() {
+    public static Builder newEmployee() {
         return new Builder();
     }
 
-    public AccountType getAccountType() {
-        return accountType;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    public void setAccountType(AccountType accountType) {
-        this.accountType = accountType;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public String getAccountNo() {
-        return accountNo;
-    }
-
-    public void setAccountNo(String accountNo) {
-        this.accountNo = accountNo;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getName() {
@@ -91,36 +77,50 @@ public class AccountRequest {
         this.email = email;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public EmployeeType getEmployeeType() {
+        return employeeType;
+    }
+
+    public void setEmployeeType(EmployeeType employeeType) {
+        this.employeeType = employeeType;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
 
     public static final class Builder {
-        private AccountType accountType;
-        private int amount;
-        private String accountNo;
+        private int employeeId;
         private String name;
         private AddressPojo addressPojo;
         private String mobileNo;
         private String aadhaar;
         private String email;
+        private int age;
+        private EmployeeType employeeType;
+        private String department;
 
-        public Builder() {
+        private Builder() {
         }
 
-        public AccountRequest build() {
-            return new AccountRequest(this);
+        public EmployeePojo build() {
+            return new EmployeePojo(this);
         }
 
-        public Builder accountType(AccountType accountType) {
-            this.accountType = accountType;
-            return this;
-        }
-
-        public Builder amount(int amount) {
-            this.amount = amount;
-            return this;
-        }
-
-        public Builder accountNo(String accountNo) {
-            this.accountNo = accountNo;
+        public Builder employeeId(int employeeId) {
+            this.employeeId = employeeId;
             return this;
         }
 
@@ -146,6 +146,21 @@ public class AccountRequest {
 
         public Builder email(String email) {
             this.email = email;
+            return this;
+        }
+
+        public Builder age(int age) {
+            this.age = age;
+            return this;
+        }
+
+        public Builder employeeType(EmployeeType employeeType) {
+            this.employeeType = employeeType;
+            return this;
+        }
+
+        public Builder department(String department) {
+            this.department = department;
             return this;
         }
     }
