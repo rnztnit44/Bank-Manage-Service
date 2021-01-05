@@ -1,6 +1,6 @@
 package com.bank.controller;
 
-import com.bank.bean.AccountRequest;
+import com.bank.bean.AccountPojo;
 import com.bank.bean.CustomerPojo;
 import com.bank.constant.ApiConstant;
 import com.bank.constant.BankConstant;
@@ -13,13 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayInputStream;
+import java.util.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -58,7 +57,7 @@ public class EmployeeController {
     }
 
     @PostMapping("account")
-    public ResponseEntity<BankApiResponse> createAccount(@RequestBody @NotNull AccountRequest accountRequest) throws BankException {
+    public ResponseEntity<BankApiResponse> createAccount(@RequestBody @NotNull AccountPojo accountRequest) throws BankException {
         LOG.info("createAccount Api request params :{}", accountRequest);
         return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,employeeService.createAccount(accountRequest)));
     }
@@ -106,17 +105,16 @@ public class EmployeeController {
         return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,deleteSuccess));
     }
 
-    @PostMapping("account/statement")
-    public ResponseEntity<BankApiResponse> accountStatement(@RequestParam @NotNull String account,@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")@PathVariable("startTime")@NotNull Date startTime,@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")@PathVariable("endTime")@NotNull Date endTime) throws BankException {
+    @GetMapping("account/statement")
+    public ByteArrayInputStream accountStatement(@RequestParam @NotNull String account,@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")@RequestParam("startTime")@NotNull Date startTime,@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")@RequestParam("endTime")@NotNull Date endTime) throws BankException {
         LOG.info("accountDetailsForCustomer Api request params :{}", account);
-        String deleteSuccess = employeeService.accountStatement(account,startTime,endTime);
-        return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,deleteSuccess));
+        return employeeService.accountStatement(account,startTime,endTime);
     }
 
     @PutMapping("account/interest")
     public ResponseEntity<BankApiResponse> calculateInterest(@RequestParam @NotNull String accountNo, @RequestParam @NotNull float interestRate) throws BankException {
         LOG.info("calculateInterest Api request params :{},{}", accountNo,interestRate);
         float interest = employeeService.calculateInterest(accountNo,interestRate);
-        return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE,BankConstant.INTEREST_CALCULATION+interest));
+        return ResponseEntity.ok().body(new BankApiResponse(ApiConstant.SUCCESS_CODE, BankConstant.INTEREST_CALCULATION+interest));
     }
 }

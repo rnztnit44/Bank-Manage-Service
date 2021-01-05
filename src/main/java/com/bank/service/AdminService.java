@@ -25,22 +25,28 @@ public class AdminService {
 
 
     public String addEmployees(List<EmployeePojo> employeePojoList) throws BankException {
+        //WE SHOULD VALIDATE TOKEN FOR EVERY API CALL.CURRENTLY, i SIMPLY STORED token IN 1 table.Ideally,
+        // JWT token concept is followed.we use to decrypt it.after decrypt,if we are able to get information,
+        //then we should proceed for further work in respective api.
+        //NOTE- I DEVELPOED a entire feature of Authentication & Authorization.its,mentioned in my Resume.For now,
+        // Authentication in every Api call, i skipped.
         boolean invalidEmployee = false;
         for (EmployeePojo employeePojo : employeePojoList) {
             if (employeePojo == null) {
                 invalidEmployee = true;
+            } else {
+                AddressPojo addressPojo = employeePojo.getAddressPojo();
+                Address address = new Address.Builder().location(addressPojo.getLocation())
+                        .city(addressPojo.getCity()).country(addressPojo.getCountry())
+                        .pinCode(addressPojo.getPinCode()).state(addressPojo.getState()).build();
+                addressRepository.save(address);
+                Employee employee = new Employee.Builder().aadhaar(employeePojo.getAadhaar())
+                        .email(employeePojo.getEmail()).mobileNo(employeePojo.getMobileNo())
+                        .name(employeePojo.getName()).addressId(address.getAddressId())
+                        .employeeType(employeePojo.getEmployeeType().name()).
+                                department(employeePojo.getDepartment()).build();
+                employeeRepository.save(employee);
             }
-            AddressPojo addressPojo = employeePojo.getAddressPojo();
-            Address address = new Address.Builder().location(addressPojo.getLocation())
-                    .city(addressPojo.getCity()).country(addressPojo.getCountry())
-                    .pinCode(addressPojo.getPinCode()).state(addressPojo.getState()).build();
-            addressRepository.save(address);
-            Employee employee = new Employee.Builder().aadhaar(employeePojo.getAadhaar())
-                    .email(employeePojo.getEmail()).mobileNo(employeePojo.getMobileNo())
-                    .name(employeePojo.getName()).addressId(address.getAddressId())
-                    .employeeType(employeePojo.getEmployeeType().name()).
-                    department(employeePojo.getDepartment()).build();
-            employeeRepository.save(employee);
         }
         if (invalidEmployee)
             throw new BankException(ExceptionConstant.INVALID_INPUT);
